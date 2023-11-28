@@ -3,7 +3,7 @@ Terraform module which creates a DigitalOcean Kubernetes cluster.
 
 This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-modules/terraform-aws-eks)
 
-[![DeepSource](https://app.deepsource.com/gh/johncosta/template-repository.svg/?label=active+issues&show_trend=true&token=_cRR3moYw4nG9ZTeToa9nfK3)](https://app.deepsource.com/gh/johncosta/template-repository/)
+[![DeepSource](https://app.deepsource.com/gh/johncosta/terraform-digitialocean-kubernetes.svg/?label=active+issues&show_trend=true&token=ZtqfwW9-roxIC4Aa8ZyhrmGB)](https://app.deepsource.com/gh/johncosta/terraform-digitialocean-kubernetes/)
 [![GitHub Super-Linter](https://github.com/johncosta/template-repository/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 ## Documentation
