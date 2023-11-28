@@ -1,0 +1,30 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      # file
+      - id: end-of-file-fixer
+        description: Fixes missing end-of-file newline in files.
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+        description: Forces to replace line ending by the UNIX 'lf' character.
+      - id: trailing-whitespace
+        description: Trims trailing whitespace.
+      - id: check-added-large-files
+        args: ["--maxkb=100"]
+        description: Checks for large files being added to git.
+      # format
+      - id: check-yaml
+        description: Checks that all yaml files are valid.
+      - id: check-json
+        description: Checks that all json files are valid.
+      - id: check-toml
+        description: Checks that all toml files are valid.
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.23
+    hooks:
+      # terraform
+      - id: terraform-fmt
+      - id: terraform-validate
+      - id: tflint
