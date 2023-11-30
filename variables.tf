@@ -23,6 +23,13 @@ variable "cluster_ipv4_cidr" {
   default     = null
 }
 
+variable "allow_default_vpc" {
+  type        = bool
+  description = "used to explicitly allow default vpc"
+  nullable    = true
+  default     = false
+}
+
 variable "default_node_pool_node_size" {
   type        = string
   description = "default node pool node size"

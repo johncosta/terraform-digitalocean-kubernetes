@@ -33,7 +33,7 @@ module "k8s" {
   default_node_pool_node_count = 1
   default_node_pool_node_size  = "s-2vcpu-2gb"
 
+
   cluster_ipv4_cidr            = "10.1.0.0/20"
 }
 ```
-

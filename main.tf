@@ -3,7 +3,9 @@ locals {
   cluster_name     = join("-", [var.cluster_name_prefix, "cluster"])
   vpc_name         = join("-", [var.cluster_name_prefix, "vpc"])
 
-  create_vpc = var.cluster_ipv4_cidr != null && var.cluster_ipv4_cidr != ""
+  create_vpc                 = var.cluster_ipv4_cidr != null && var.cluster_ipv4_cidr != ""
+  allow_default_vpc          = !local.create_vpc && var.allow_default_vpc ? true : false
+  default_vpc_value_or_error = local.create_vpc || local.allow_default_vpc ? null : file("[Error] you must explicitly set the variable `allow_default_vpc` if you want the cluster to access the default vpc")
 }
 
 data "digitalocean_kubernetes_versions" "version" {
@@ -22,9 +24,9 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   }
 
   /*
-   * Conditionally set the cluster vpc if a CIDR is passed
+   * Conditionally set the cluster vpc if a CIDR is passed.
    */
-  vpc_uuid = local.create_vpc ? digitalocean_vpc.vpc.0.id : null
+  vpc_uuid = local.create_vpc ? digitalocean_vpc.vpc[0].id : local.default_vpc_value_or_error
 }
 
 resource "digitalocean_vpc" "vpc" {
