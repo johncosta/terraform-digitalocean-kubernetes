@@ -1,6 +1,9 @@
 version = 1
 
 [[analyzers]]
+name = "terraform"
+
+[[analyzers]]
 name = "secrets"
 
 [[analyzers]]
