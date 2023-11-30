@@ -16,6 +16,13 @@ variable "cluster_region" {
   nullable    = false
 }
 
+variable "cluster_ipv4_cidr" {
+  type        = string
+  description = "k8s cluster ipv4 cidr"
+  nullable    = true
+  default     = null
+}
+
 variable "default_node_pool_node_size" {
   type        = string
   description = "default node pool node size"
