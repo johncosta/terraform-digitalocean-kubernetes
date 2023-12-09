@@ -24,7 +24,7 @@ This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-
 ```hcl
 module "k8s" {
   source  = "terraform-digitalocean-kubernetes"
-  version = "0.0.3"
+  version = "0.0.6"
 
   cluster_name_prefix          = "test-cluster"
   cluster_region               = "nyc1"
@@ -33,7 +33,10 @@ module "k8s" {
   default_node_pool_node_count = 1
   default_node_pool_node_size  = "s-2vcpu-2gb"
 
-
   cluster_ipv4_cidr            = "10.1.0.0/20"
+
+  # writes the kubeconfig to the local filesystem
+  path_to_kubeconfig         = "/full/path/to/.kube"
+  use_cluster_name_in_config = true
 }
 ```

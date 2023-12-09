@@ -41,3 +41,16 @@ variable "default_node_pool_node_count" {
   description = "default node pool node count"
   nullable    = false
 }
+
+variable "path_to_kubeconfig" {
+  type        = string
+  description = "path to kubeconfig"
+  nullable    = false
+}
+
+variable "use_cluster_name_in_config" {
+  type        = bool
+  description = "use cluster name in config"
+  nullable    = true
+  default     = false
+}

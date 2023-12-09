@@ -17,3 +17,11 @@ output "cluster_endpoint" {
 output "cluster_kube_config" {
   value = digitalocean_kubernetes_cluster.cluster.kube_config
 }
+
+output "full_path_to_kubeconfig" {
+  value = local.full_path_to_kubeconfig
+}
+
+output "environment_variable_kubeconfig" {
+  value = "export KUBECONFIG=${local.full_path_to_kubeconfig}"
+}
