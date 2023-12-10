@@ -54,3 +54,22 @@ variable "use_cluster_name_in_config" {
   nullable    = true
   default     = false
 }
+
+variable "cluster_addons" {
+  type = map(
+    object({
+      enabled       = bool
+      chart_version = string
+    })
+  )
+  description = <<EOT
+    cluster_addons = {
+      addon =  {
+        enabled = "true"
+        chart_version = "1.0.0"
+      }
+    }
+    EOT
+  nullable    = true
+  default     = null
+}

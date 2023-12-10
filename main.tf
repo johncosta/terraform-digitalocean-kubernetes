@@ -17,7 +17,7 @@ data "digitalocean_kubernetes_versions" "version" {
   version_prefix = var.cluster_version_prefix
 }
 
-resource "digitalocean_kubernetes_cluster" "cluster" {
+resource "digitalocean_kubernetes_cluster" "this" {
   name    = local.cluster_name
   region  = var.cluster_region
   version = data.digitalocean_kubernetes_versions.version.latest_version
@@ -45,6 +45,28 @@ resource "digitalocean_vpc" "vpc" {
 resource "local_sensitive_file" "kubeconfig" {
   count = local.create_kubeconfig ? 1 : 0
 
-  content  = digitalocean_kubernetes_cluster.cluster.kube_config[0].raw_config
+  content  = digitalocean_kubernetes_cluster.this.kube_config[0].raw_config
   filename = local.full_path_to_kubeconfig
+
+  depends_on = [
+    digitalocean_kubernetes_cluster.this
+  ]
+}
+
+module "cluster_addons" {
+  source = "./modules/cluster-addons"
+
+  # The module must be dependant on the kubeconfig creation. We pass these values to the module
+  # so that it can use them to configure the cluster addons
+  full_path_to_kubeconfig = local_sensitive_file.kubeconfig[0].filename
+  cluster_id              = digitalocean_kubernetes_cluster.this.id
+
+  # Cluster Addons Configuration
+  cluster_addons = var.cluster_addons
+
+  providers = {
+    kubernetes = kubernetes.default
+    helm       = helm.default
+    null       = null.default
+  }
 }
