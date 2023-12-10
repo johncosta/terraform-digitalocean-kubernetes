@@ -1,5 +1,5 @@
 locals {
-  argo_config        = lookup(var.cluster_addons, "argo", null)
+  argo_config        = lookup(var.cluster_addons, "argo", { enabled = false, chart_version = null })
   argo_enabled       = local.argo_config != null ? lookup(local.argo_config, "enabled", false) : false
   argo_chart_version = local.argo_config != null ? lookup(local.argo_config, "chart_version", null) : null
   namespace          = "argo"

@@ -18,8 +18,8 @@ variable "cluster_addons" {
       }
     }
     EOT
-  nullable    = true
-  default     = null
+  nullable    = false
+  default     = {}
 }
 
 variable "cluster_id" {
