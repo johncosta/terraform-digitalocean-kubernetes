@@ -24,7 +24,7 @@ This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-
 ```hcl
 module "k8s" {
   source  = "terraform-digitalocean-kubernetes"
-  version = "0.0.6"
+  version = "0.0.7"
 
   cluster_name_prefix          = "test-cluster"
   cluster_region               = "nyc1"
@@ -38,5 +38,12 @@ module "k8s" {
   # writes the kubeconfig to the local filesystem
   path_to_kubeconfig         = "/full/path/to/.kube"
   use_cluster_name_in_config = true
+
+  cluster_addons = {
+    argo = {
+      enabled = true
+      chart_version = "5.51.6"
+    }
+  }
 }
 ```
