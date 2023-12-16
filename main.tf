@@ -52,21 +52,3 @@ resource "local_sensitive_file" "kubeconfig" {
     digitalocean_kubernetes_cluster.this
   ]
 }
-
-module "cluster_addons" {
-  source = "./modules/cluster-addons"
-
-  # The module must be dependant on the kubeconfig creation. We pass these values to the module
-  # so that it can use them to configure the cluster addons
-  full_path_to_kubeconfig = local_sensitive_file.kubeconfig[0].filename
-  cluster_id              = digitalocean_kubernetes_cluster.this.id
-
-  # Cluster Addons Configuration
-  cluster_addons = var.cluster_addons
-
-  providers = {
-    kubernetes = kubernetes.default
-    helm       = helm.default
-    null       = null.default
-  }
-}

@@ -38,12 +38,5 @@ module "k8s" {
   # writes the kubeconfig to the local filesystem
   path_to_kubeconfig         = "/full/path/to/.kube"
   use_cluster_name_in_config = true
-
-  cluster_addons = {
-    argo = {
-      enabled = true
-      chart_version = "5.51.6"
-    }
-  }
 }
 ```
