@@ -24,7 +24,7 @@ This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-
 ```hcl
 module "k8s" {
   source  = "terraform-digitalocean-kubernetes"
-  version = "0.0.7"
+  version = "0.0.10"
 
   cluster_name_prefix          = "test-cluster"
   cluster_region               = "nyc1"
@@ -38,5 +38,24 @@ module "k8s" {
   # writes the kubeconfig to the local filesystem
   path_to_kubeconfig         = "/full/path/to/.kube"
   use_cluster_name_in_config = true
+
+  cluster_addons = {
+    /*
+     * Add ArgoCD into its own namespace
+     */
+    argo = {
+      enabled = true
+    }
+    /*
+     * Add ingress-nginx and cert-manager into their own namespaces
+     */
+    ingress = {
+      enabled = true
+      config  = {
+        domain_root              = "example.com"
+        domain_certificate_email = "name@example.com"
+      }
+    }
+  }
 }
 ```

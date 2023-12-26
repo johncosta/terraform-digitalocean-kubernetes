@@ -40,6 +40,10 @@ resource "digitalocean_vpc" "vpc" {
   name     = local.vpc_name
   region   = var.cluster_region
   ip_range = var.cluster_ipv4_cidr
+
+  timeouts {
+    delete = "10m"
+  }
 }
 
 resource "local_sensitive_file" "kubeconfig" {
@@ -51,4 +55,22 @@ resource "local_sensitive_file" "kubeconfig" {
   depends_on = [
     digitalocean_kubernetes_cluster.this
   ]
+}
+
+module "addons" {
+  source = "./modules/addons"
+
+  /*
+   * Pass the cluster name and id to the module to ensure that addons depend on the cluster.
+   */
+  cluster_name   = digitalocean_kubernetes_cluster.this.name
+  cluster_id     = digitalocean_kubernetes_cluster.this.id
+  cluster_addons = var.cluster_addons
+
+  providers = {
+    digitalocean = digitalocean
+    kubernetes   = kubernetes
+    kubectl      = kubectl
+    helm         = helm
+  }
 }
