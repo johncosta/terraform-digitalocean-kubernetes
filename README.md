@@ -5,6 +5,7 @@ This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-
 
 [![DeepSource](https://app.deepsource.com/gh/johncosta/terraform-digitalocean-kubernetes.svg/?label=active+issues&show_trend=true&token=ZtqfwW9-roxIC4Aa8ZyhrmGB)](https://app.deepsource.com/gh/johncosta/terraform-digitalocean-kubernetes/)
 [![GitHub Super-Linter](https://github.com/johncosta/template-repository/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![TerraformRegistry](https://img.shields.io/badge/Terraform-Registry-blue)](https://registry.terraform.io/modules/johncosta/kubernetes/digitalocean/latest)
 
 ## Documentation
 
@@ -45,6 +46,9 @@ module "k8s" {
      */
     argo = {
       enabled = true
+      config = {
+        subdomain_create = true
+      }
     }
     /*
      * Add ingress-nginx and cert-manager into their own namespaces
@@ -56,6 +60,11 @@ module "k8s" {
         domain_certificate_email = "name@example.com"
       }
     }
+  }
+
+  # required provider configuration
+  providers = {
+    digitalocean = digitalocean
   }
 }
 ```
