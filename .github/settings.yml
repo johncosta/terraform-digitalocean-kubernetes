@@ -11,10 +11,10 @@ repository:
   description: Terraform module to create a Kubernetes cluster and associated resources.
 
   # A URL with more information about the repository
-  homepage:
+  homepage: https://registry.terraform.io/modules/johncosta/kubernetes/digitalocean
 
   # A comma-separated list of topics to set on the repository
-  topics: github, terraform, digitalocean, kubernetes
+  topics: terraform,terraform-module,digitalocean,kubernetes,doks
 
   # Either `true` to make the repository private, or `false` to make it public.
   private: false

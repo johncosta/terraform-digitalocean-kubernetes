@@ -19,15 +19,16 @@ This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-
 * EKS Cluster
 * Specified Private VPC
 * Exported URNs for DigitalOcean Projects
+* Generated and Export for Kubeconfig file
 
 ### Using this module
 
 ```hcl
 module "k8s" {
   source  = "terraform-digitalocean-kubernetes"
-  version = "0.0.10"
+  version = "0.0.12"
 
-  cluster_name_prefix          = "test-cluster"
+  cluster_name_prefix          = "test"
   cluster_region               = "nyc1"
   cluster_version_prefix       = "1.28."
 
