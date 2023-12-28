@@ -2,6 +2,10 @@ output "cluster_name" {
   value = digitalocean_kubernetes_cluster.this.name
 }
 
+output "cluster_default_worker_pool_name" {
+  value = digitalocean_kubernetes_cluster.this.node_pool[0].name
+}
+
 output "cluster_region" {
   value = digitalocean_kubernetes_cluster.this.region
 }

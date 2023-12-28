@@ -1,7 +1,8 @@
 locals {
-  worker_pool_name = join("-", [var.cluster_name_prefix, "default-worker-pool"])
-  cluster_name     = join("-", [var.cluster_name_prefix, "cluster"])
-  vpc_name         = join("-", [var.cluster_name_prefix, "vpc"])
+  cluster_name_prefix = join("-", [var.cluster_region, var.cluster_name_prefix])
+  worker_pool_name    = join("-", [local.cluster_name_prefix, "default-worker-pool"])
+  cluster_name        = join("-", [local.cluster_name_prefix, "cluster"])
+  vpc_name            = join("-", [local.cluster_name_prefix, "vpc"])
 
   create_vpc                 = var.cluster_ipv4_cidr != null && var.cluster_ipv4_cidr != ""
   allow_default_vpc          = !local.create_vpc && var.allow_default_vpc ? true : false
