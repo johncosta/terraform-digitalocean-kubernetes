@@ -26,5 +26,8 @@ repos:
     hooks:
       # terraform
       - id: terraform-fmt
+        args:
+          - -write=true
       - id: terraform-validate
+        exclude: ^examples/errors
       - id: tflint

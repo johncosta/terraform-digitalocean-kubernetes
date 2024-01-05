@@ -54,30 +54,31 @@ YAML
 ################################################################################
 
 resource "digitalocean_domain" "root" {
-  count = local.dns_domain_create ? 1 : 0
+  count = local.dns_enabled && local.dns_domain_create ? 1 : 0
 
   name       = local.dns_domain_root
   ip_address = data.local_file.nginx-public-ip[0].content
 }
 
-data "digitalocean_domain" "root" {
-  count = local.dns_domain_create ? 0 : 1
+#data "digitalocean_domain" "root" {
+#  //count = local.dns_enabled && local.dns_domain_create ? 0 : 1
+#  count = 0
+#
+#  name = local.dns_domain_root
+#}
 
-  name = local.dns_domain_root
-}
-
-locals {
-  domain_id = local.dns_domain_create ? digitalocean_domain.root[0].id : data.digitalocean_domain.root[0].id
-}
-resource "digitalocean_record" "www" {
-  count = local.dns_enabled && local.argo_subdomain_create ? 1 : 0
-
-  domain = local.domain_id
-  type   = "A"
-  name   = local.argo_record_name
-  value  = data.local_file.nginx-public-ip[0].content
-
-  depends_on = [
-    kubernetes_namespace.argo,
-  ]
-}
+#locals {
+#  domain_id = local.dns_domain_create ? digitalocean_domain.root[0].id : data.digitalocean_domain.root[0].id
+#}
+#resource "digitalocean_record" "www" {
+#  count = local.dns_enabled && local.argo_subdomain_create ? 1 : 0
+#
+#  domain = local.domain_id
+#  type   = "A"
+#  name   = local.argo_record_name
+#  value  = data.local_file.nginx-public-ip[0].content
+#
+#  depends_on = [
+#    kubernetes_namespace.argo,
+#  ]
+#}
