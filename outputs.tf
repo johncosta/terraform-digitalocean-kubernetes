@@ -39,5 +39,9 @@ output "input_cluster_addons" {
 }
 
 output "addons_output_argo_config" {
-  value = module.addons.addon_output_argo_config
+  value = try(module.addons.addon_output_argo_config, null)
+}
+
+output "local_vpc_configured_as" {
+  value = local.local_vpc_configured_as
 }

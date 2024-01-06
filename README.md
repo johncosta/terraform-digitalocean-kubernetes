@@ -1,5 +1,5 @@
 # DigitalOcean Terraform Module
-Terraform module which creates a DigitalOcean Kubernetes cluster.
+Terraform module which creates a DigitalOcean Kubernetes cluster using prescrive defaults.
 
 This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-modules/terraform-aws-eks)
 
