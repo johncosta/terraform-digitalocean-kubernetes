@@ -9,10 +9,10 @@ locals {
   argo_chart_config  = lookup(local.argo_addon, "chart_config", {})
   argo_chart_version = lookup(local.argo_addon, "chart_version", "5.51.6")
   argo_record_name   = lookup(local.argo_addon, "record_name", "argo")
-  #  argo_module_config = lookup(local.argo_addon, "config", {
-  #    subdomain_create = false
-  #  })
-  //argo_subdomain_create = lookup(local.argo_module_config, "subdomain_create", false)
+  argo_module_config = lookup(local.argo_addon, "config", {
+    subdomain_create = false
+  })
+  argo_subdomain_create = lookup(local.argo_module_config, "subdomain_create", false)
 
   argo_hostname = join(".", [local.argo_record_name, local.dns_domain_root])
 }

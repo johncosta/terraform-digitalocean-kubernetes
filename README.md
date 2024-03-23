@@ -26,7 +26,7 @@ This module is inspired by [terraform-aws-eks](https://github.com/terraform-aws-
 ```hcl
 module "k8s" {
   source  = "terraform-digitalocean-kubernetes"
-  version = "0.0.12"
+  version = "0.1.4"
 
   cluster_name_prefix          = "test"
   cluster_region               = "nyc1"
@@ -69,3 +69,14 @@ module "k8s" {
   }
 }
 ```
+
+### Retrieving ArgoCD Password
+If you're using the ArgoCD addon, you can retrieve the password by running the following command:
+
+```shell
+Run the following command to retrieve the ArgoCD password:
+```shell
+kubectl -n argo get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+Use `admin` and the password to access the ArgoCD UI.
