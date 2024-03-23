@@ -19,36 +19,13 @@ locals {
    *     allow_create_vpc = false  # bring your own
    * 3) allow use of the default vpc if the user explicitly sets the variable
    *     `allow_default_vpc` to true.
-   *
-   * cluster_ipv4_cidr     set
-   * allow_create_vpc      True (default)
-   * allow_default_vpc     False (default)
-   *
-   * cluster_ipv4_cidr     set
-   * allow_create_vpc      False
-   * allow_default_vpc     False (default)
-   *
-   * cluster_ipv4_cidr     set
-   * allow_create_vpc      True (default)
-   * allow_default_vpc     True
-   *
-   * cluster_ipv4_cidr     unset
-   * allow_create_vpc      True (default)
-   * allow_default_vpc     False (default)
-   *
-   * cluster_ipv4_cidr     unset
-   * allow_create_vpc      False
-   * allow_default_vpc     False (default)
-   *
-   * cluster_ipv4_cidr     unset
-   * allow_create_vpc      True (default)
-   * allow_default_vpc     True
    */
   use_specified_vpc          = var.cluster_ipv4_cidr != null && var.cluster_ipv4_cidr != ""
   allow_create_vpc           = var.allow_create_vpc ? true : false
   allow_default_vpc          = var.allow_default_vpc ? true : false
   default_vpc_value_or_error = local.use_specified_vpc || local.allow_default_vpc ? null : file("[Error] you must explicitly set the variable `allow_default_vpc` if you want the cluster to access the default vpc or set cluster_ipv4_cidr to create a vpc.")
   cluster_vpc_uuid           = local.use_specified_vpc ? digitalocean_vpc.vpc[0].id : local.default_vpc_value_or_error
+
   local_vpc_configured_as = {
     use_specified_vpc = local.use_specified_vpc
     allow_create_vpc  = local.allow_create_vpc
