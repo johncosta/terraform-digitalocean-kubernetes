@@ -3,7 +3,6 @@ locals {
     enabled = false,
     config = {
       domain_root              = "example.com",
-      domain_create            = false,
       domain_certificate_email = "name@example.com"
     }
   })
@@ -13,12 +12,10 @@ locals {
   nginx_chart_version = lookup(local.nginx_addon, "chart_version", "4.9.0")
   nginx_config = lookup(local.nginx_addon, "config", {
     domain_root              = "example.com",
-    domain_create            = false,
     domain_certificate_email = "name@example.com"
   })
 
   dns_domain_root          = lookup(local.nginx_config, "domain_root", "example.com")
-  dns_domain_create        = lookup(local.nginx_config, "domain_create", false)
   domain_certificate_email = lookup(local.nginx_config, "domain_certificate_email", "name@example.com")
 
   ingress_public_ip_file_path = "/tmp"
