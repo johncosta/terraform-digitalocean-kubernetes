@@ -55,6 +55,7 @@ resource "helm_release" "nginx" {
   depends_on = [
     kubernetes_namespace.nginx,
   ]
+  timeout = 600
 }
 
 ################################################################################
